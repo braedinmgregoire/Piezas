@@ -104,5 +104,73 @@ Piece Piezas::pieceAt(int row, int column)
 **/
 Piece Piezas::gameState()
 {
+  //check if game is over
+  for(int i=0;i<BOARD_ROWS;i++){
+    for(int j=0;j<BOARD_COLS;j++){
+      if(board[i][j] == Blank){
+        return Invalid;
+      }
+    }
+  }
+  int xMost = 0;
+  int oMost = 0;
+  //get x's points
+  for(int i=0;i<BOARD_ROWS;i++){
+    for(int j=0;j<BOARD_COLS;j++){
+      if(board[i][j] == X){
+        int xcount = 0;
+        int xup = 0;
+        int yup = 0;
+        int ycount = 0;
+        while(pieceAt(i,j+xup) == X){
+          xcount++;
+          xup++;
+        }
+        if(xcount > xMost){
+          xMost = xcount;
+        }
+        while(pieceAt(i+yup,j) == X){
+          ycount++;
+          yup++;
+        }
+        if(ycount > xMost){
+          xMost = ycount;
+        }
+      }
+    }
+  }
+  //check board for largest o count
+  for(int i=0;i<BOARD_ROWS;i++){
+    for(int j=0;j<BOARD_COLS;j++){
+      if(board[i][j] == O){
+        int xcount = 0;
+        int xup = 0;
+        int yup = 0;
+        int ycount = 0;
+        while(pieceAt(i,j+xup) == O){
+          xcount++;
+          xup++;
+        }
+        if(xcount > oMost){
+          oMost = xcount;
+        }
+        while(pieceAt(i+yup,j) == O){
+          ycount++;
+          yup++;
+        }
+        if(ycount > oMost){
+          oMost = ycount;
+        }
+      }
+    }
+  }
+  if(xMost > oMost){
+    return X;
+  }
+  else if(oMost > xMost){
+    return O;
+  }
+  else{
     return Blank;
+  }
 }

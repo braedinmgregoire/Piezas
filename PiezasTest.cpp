@@ -52,6 +52,15 @@ TEST(PiezasTest, checkTurnFunction)
 	ASSERT_EQ(board.pieceAt(1,2), 'O');
 }
 
+TEST(PiezasTest, checkMissedTurn)
+{
+  Piezas board;
+  board.dropPiece(2);
+  board.dropPiece(6);
+  board.dropPiece(2);
+	ASSERT_EQ(board.pieceAt(1,2), 'X');
+}
+
 TEST(PiezasTest, fullPlacement)
 {
   Piezas board;
@@ -67,4 +76,47 @@ TEST(PiezasTest, resetFunction)
   board.dropPiece(2);
   board.reset();
 	ASSERT_EQ(board.pieceAt(0,2), ' ');
+}
+
+TEST(PiezasTest, checkUnfinished)
+{
+  Piezas board;
+  board.dropPiece(2);
+	ASSERT_EQ(board.gameState(), '?');
+}
+
+TEST(PiezasTest, xWin)
+{
+  Piezas board;
+  board.dropPiece(0);//x
+  board.dropPiece(0);//o
+  board.dropPiece(1);//x
+  board.dropPiece(0);//o
+  board.dropPiece(2);//x
+  board.dropPiece(2);//o
+  board.dropPiece(3);//x
+  board.dropPiece(2);//o
+  board.dropPiece(1);//x
+  board.dropPiece(3);//o
+  board.dropPiece(1);//x
+  board.dropPiece(3);//o
+	ASSERT_EQ(board.gameState(), 'X');
+}
+
+TEST(PiezasTest, tie)
+{
+  Piezas board;
+  board.dropPiece(0);//x
+  board.dropPiece(0);//o
+  board.dropPiece(1);//x
+  board.dropPiece(1);//o
+  board.dropPiece(2);//x
+  board.dropPiece(2);//o
+  board.dropPiece(3);//x
+  board.dropPiece(3);//o
+  board.dropPiece(0);//x
+  board.dropPiece(1);//o
+  board.dropPiece(2);//x
+  board.dropPiece(3);//o
+	ASSERT_EQ(board.gameState(), ' ');
 }
