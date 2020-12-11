@@ -16,7 +16,6 @@ class PiezasTest : public ::testing::Test
 
 TEST(PiezasTest, sanityCheck)
 {
-  Piezas board;
 	ASSERT_TRUE(true);
 }
 
@@ -43,4 +42,29 @@ TEST(PiezasTest, correctPlacement)
   Piezas board;
   board.dropPiece(2);
 	ASSERT_EQ(board.pieceAt(0,2), 'X');
+}
+
+TEST(PiezasTest, checkTurnFunction)
+{
+  Piezas board;
+  board.dropPiece(2);
+  board.dropPiece(2);
+	ASSERT_EQ(board.pieceAt(1,2), 'O');
+}
+
+TEST(PiezasTest, fullPlacement)
+{
+  Piezas board;
+  board.dropPiece(2);
+  board.dropPiece(2);
+  board.dropPiece(2);
+	ASSERT_EQ(board.dropPiece(2), ' ');
+}
+
+TEST(PiezasTest, resetFunction)
+{
+  Piezas board;
+  board.dropPiece(2);
+  board.reset();
+	ASSERT_EQ(board.pieceAt(0,2), ' ');
 }
